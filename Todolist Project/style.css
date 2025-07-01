@@ -9,6 +9,7 @@ main, section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 h1, h2 {
@@ -25,9 +26,38 @@ button {
     transition-duration: 0.25s;
 }
 
-/* Classes */
+/* Classes for static elements */
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
-/* Ids */
+.container-with-frame {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 415px;
+}
+
+/* Classes for dynamic states */
+.todo-list-frame {
+    height: 400px;
+    width: 300px;
+    background-color: #D8D5DB;
+    margin: 10px;
+    transition-duration: 0.5s;
+}
+
+.todo-list-frame:hover {
+    margin-top: 15px; /* Adjust the value as needed */
+}
+
+/* Static ids */
 #about-text {
     text-align: center;
     width: 90%;
@@ -37,3 +67,4 @@ button {
 button:hover {
     background-color: #eaeaea;
 }
+
