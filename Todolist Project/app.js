@@ -8,9 +8,13 @@ createButton.addEventListener("click", function() {
         alert("Can't have more than 4 todo lists!");
         return;
     }
-    const frame = document.createElement("div");
-    todoListContainer.append(frame);
-    todoListContainer.classList.add("container-with-frame");
-    frame.classList.add("todo-list-frame");
+
+    const template = document.getElementById("todo-list-template");
+    const clone = template.content.cloneNode(true);
+
+    todoListContainer.append(clone);
+    if (!todoListContainer.classList.contains("container-with-frame")) {
+        todoListContainer.classList.add("container-with-frame");
+    }
 })
 
