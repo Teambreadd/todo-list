@@ -65,13 +65,18 @@ button {
 
 .tasks-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 80%;
     height: 65%;
     border: 2px solid #2D3142;
     border-radius: 2px;
+    overflow-y: auto;
+    gap: 0.75rem;  
+    box-sizing: border-box;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .list-title {
@@ -102,6 +107,48 @@ button {
 }
 
 .delete-list-button:hover {
+    background-color: rgb(228, 112, 112); 
+}
+
+.task-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    background-color: #EAE8FF;
+    border-radius: 10px;
+}
+
+.task-text-container {
+    width: 80%;
+    display: flex;
+    justify-content: right;
+    align-items: right;  
+    text-align: center;
+}
+
+.task-text {
+    width: 100%;
+    margin-left: 8px;
+}
+
+.task-delete-button-container {
+    width: 23%;
+    display: flex;
+    justify-content: left;
+    align-items: left; 
+}
+
+.delete-task-button {
+    background-color: rgb(251, 137, 137); 
+    width: 25px;
+    height: 25px;
+    border-width: 1px;
+    margin-left: 7px;
+}
+
+.delete-task-button:hover {
     background-color: rgb(228, 112, 112); 
 }
 
