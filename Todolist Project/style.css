@@ -45,8 +45,8 @@ button {
 }
 
 /* Classes (previously) for dynamic states (well not anymore as I am using templates) */
-.todo-list-frame {
-    height: 400px;
+.to-do-list-frame {
+    height: 370px;
     width: 300px;
     background-color: #D8D5DB;
     margin: 10px;
@@ -58,8 +58,8 @@ button {
     border-radius: 5px;
 }
 
-.todo-list-frame:hover {
-    margin-top: 20px; 
+.to-do-list-frame:hover {
+    margin-bottom: 20px; 
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -152,11 +152,19 @@ button {
     background-color: rgb(228, 112, 112); 
 }
 
+/* Classes for Dynamic States */
+
+.stuck {
+    position: fixed;
+    transform: translateY(-25%);
+    z-index: 1000;
+}
+
 /* Static ids */
-#about-text {
+/* #about-text {
     text-align: center;
     width: 90%;
-}
+} */
 
 /* Transitions */
 button:hover {
