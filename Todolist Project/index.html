@@ -7,6 +7,7 @@
     <title>To-do List</title>
 </head>
 <body>
+    
     <main>
     <h1>Todo List Website</h1>
     <section>
@@ -18,13 +19,16 @@
         <button id="create-button">Create to-do list</button>
     </section>
     </main>
+
+    <!-- Templates -->
+
     <template id="to-do-list-template">
         <div class="to-do-list-frame">
             <h1 contenteditable="true" data-placeholder-text="Click to add title" class="list-title editable">Click to add title</h1>
             <h2 class="task-title">Tasks</h2>
             <div class="tasks-container">
             </div>
-            <div class="container">
+            <div class="container buttons-container">
                 <button class="add-task-button">
                     Add task
                 </button>
