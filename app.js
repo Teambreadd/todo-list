@@ -72,6 +72,8 @@ function createTodoListFromData(listData) {
         todoListContainer.classList.add("container-with-frame");
     }
 
+    createButton.classList.add("stuck");
+
     todoListContainer.appendChild(listTemplateClone);
 }
 

@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="./style.css">
     <title>To-do List</title>
 </head>
+
 <body>
 
     <main>
-    <h1>Todo List Website</h1>
-    <section>
-    <h2>To-do Lists:</h2>
-    <div class="container" id="to-do-list-container"></div>
-    <!--Stuff to be added here at runtime-->
-    </section>
-    <section>
-        <button id="create-button">Create to-do list</button>
-    </section>
+        <h1>Todo List Website</h1>
+        <section>
+            <h2>To-do Lists:</h2>
+            <div class="container" id="to-do-list-container"></div>
+            <!--Stuff to be added here at runtime-->
+        </section>
+        <section>
+            <button id="create-button">Create to-do list</button>
+        </section>
     </main>
 
     <!-- Templates -->
 
     <template id="to-do-list-template">
         <div class="to-do-list-frame">
-            <h1 contenteditable="true" data-placeholder-text="Click to add title" class="list-title editable">Click to add title</h1>
+            <h1 contenteditable="true" data-placeholder-text="Click to add title" class="list-title editable">Click to
+                add title</h1>
             <h2 class="task-title">Tasks</h2>
             <div class="tasks-container">
             </div>
@@ -42,7 +45,8 @@
     <template id="task-template">
         <div class="task-div">
             <div class="task-text-container">
-                <h3 contenteditable="true" data-placeholder-text="Click to add text" class="task-text editable">Click to add text</h3>
+                <h3 contenteditable="true" data-placeholder-text="Click to add text" class="task-text editable">Click to
+                    add text</h3>
             </div>
             <div class="task-delete-button-container">
                 <button class="delete-task-button">X</button>
@@ -51,4 +55,5 @@
     </template>
     <script src="./app.js"></script>
 </body>
+
 </html>
