@@ -139,6 +139,21 @@ createButton.addEventListener("click", () => {
     saveTodoListsToLocalStorage();
 })
 
+// Helper function to move cursor to the end of text (conventional)
+function placeCursorAtEnd(el) {
+    if (!el || !el.isContentEditable) return;
+
+    const range = document.createRange();
+    const sel = window.getSelection();
+
+    range.selectNodeContents(el);
+    range.collapse(false); 
+
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
+
+
 // Computer
 document.addEventListener('focusin', (event) => {
     if (event.target.isContentEditable) {
@@ -152,6 +167,8 @@ document.addEventListener('focusin', (event) => {
         if (placeholderText == element.innerText) {
             element.innerText = ""
         }
+
+        setTimeout(() => placeCursorAtEnd(element), 0);
         
         // console.log("User focused a contenteditable element:"", event.target);
     }
@@ -168,6 +185,8 @@ document.addEventListener('touchstart', (event) => {
             element.innerText = "";
             setTimeout(() => element.focus(), 0);
         }
+
+        setTimeout(() => placeCursorAtEnd(element), 0);
     }
 });
 
