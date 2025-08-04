@@ -155,7 +155,7 @@ function placeCursorAtEnd(el) {
 
 
 // Computer
-document.addEventListener('focusin', (event) => {
+document.addEventListener("focusin", (event) => {
     if (event.target.isContentEditable) {
         const element = event.target
         const placeholderText = element.getAttribute("data-placeholder-text")
@@ -175,7 +175,7 @@ document.addEventListener('focusin', (event) => {
 });
 
 // Mobile
-document.addEventListener('touchstart', (event) => {
+document.addEventListener("touchstart", (event) => {
     if (event.target.isContentEditable) {
         const element = event.target;
         const placeholder = element.getAttribute("data-placeholder-text");
@@ -190,7 +190,7 @@ document.addEventListener('touchstart', (event) => {
     }
 });
 
-document.addEventListener('focusout', (event) => {
+document.addEventListener("focusout", (event) => {
     if (event.target.isContentEditable) {
         const element = event.target
         const placeholderText = element.getAttribute("data-placeholder-text")
@@ -335,9 +335,18 @@ observer.observe(document.body, { childList: true, subtree: true });
 // Load lists (if any)
 loadTodoListsFromLocalStorage()
 
+// Register the service worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/service-worker.js").then(function(registration) {
+      console.log("ServiceWorker registered with scope:", registration.scope);
+    }, function(err) {
+      console.log("ServiceWorker registration failed:", err);
+    });
+  });
+}
 
-
-// Previous system - Didn't work out :c
+// Previous create button stick system - Didn't work out :c
 // const observer = new IntersectionObserver(
 //     (entries) => {
 //         entries.forEach(entry => {
