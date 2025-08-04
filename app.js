@@ -1,26 +1,81 @@
 const createButton = document.querySelector("#create-button")
 const todoListContainer = document.querySelector("#to-do-list-container")
+const listTemplate = document.getElementById("to-do-list-template");
+const taskTemplate = document.getElementById("task-template");
 
-createButton.addEventListener("click", () => {
-    // console.log("clicked!") -- Debug
-    const numberOfTodoLists = todoListContainer.children.length;
-    if (numberOfTodoLists >= 4) {
-        alert("Can't have more than 4 todo lists!");
-        return;
-    }
 
-    createButton.classList.add("stuck");
+// Saves all to-do lists in browser to localStorage
+function saveTodoListsToLocalStorage() {
+    const allLists = [];
 
-    const listTemplate = document.getElementById("to-do-list-template");
+    const listFrames = document.querySelectorAll(".to-do-list-frame");
+
+    listFrames.forEach((frame) => {
+        const titleEl = frame.querySelector(".list-title");
+        const tasksEls = frame.querySelectorAll(".task-div");
+
+        const list = {
+            title: titleEl.innerText,
+            tasks: []
+        };
+
+        tasksEls.forEach((taskEl) => {
+            const taskTextEl = taskEl.querySelector(".task-text");
+            list.tasks.push(taskTextEl.innerText);
+        });
+
+        allLists.push(list);
+    });
+
+    localStorage.setItem("todoLists", JSON.stringify(allLists));
+}
+
+// Loads saved to-do lists if there are any
+function loadTodoListsFromLocalStorage() {
+    const data = localStorage.getItem("todoLists");
+    if (!data) return;
+
+    const allLists = JSON.parse(data);
+    allLists.forEach((list) => {
+        createTodoListFromData(list);
+    });
+}
+
+// Creates to-do list from saved data
+function createTodoListFromData(listData) {
     const listTemplateClone = listTemplate.content.cloneNode(true);
+    const background = listTemplateClone.querySelector(".to-do-list-frame");
+
+    const titleEl = background.querySelector(".list-title");
+    titleEl.innerText = listData.title;
+
+    const addButton = background.querySelector(".add-task-button");
+    const tasksContainer = background.querySelector(".tasks-container");
+
+
+    listData.tasks.forEach(taskText => {
+        const taskTemplateClone = taskTemplate.content.cloneNode(true);
+        const taskTextEl = taskTemplateClone.querySelector(".task-text");
+        taskTextEl.innerText = taskText;
+
+        const deleteTaskButton = taskTemplateClone.querySelector(".delete-task-button");
+        deleteTaskButton.addEventListener("click", () => {
+            deleteTaskButton.parentElement.parentElement.remove();
+        });
+
+        tasksContainer.appendChild(taskTemplateClone);
+    });
+
+    setupListButtons(background)
 
     if (!todoListContainer.classList.contains("container-with-frame")) {
         todoListContainer.classList.add("container-with-frame");
     }
 
-    const background = listTemplateClone.querySelector(".to-do-list-frame");
-    // console.log(background)
+    todoListContainer.appendChild(listTemplateClone);
+}
 
+function setupListButtons(background) {
     const deleteButton = background.querySelector(".container .delete-list-button");
 
     deleteButton.addEventListener("click", () => {
@@ -32,26 +87,54 @@ createButton.addEventListener("click", () => {
                 createButton.classList.remove("stuck");
             }
         }
+        saveTodoListsToLocalStorage();
     })
 
     const addButton = background.querySelector(".container .add-task-button");
 
     addButton.addEventListener("click", () => {
-        const taskTemplate = document.getElementById("task-template");
         const taskTemplateClone = taskTemplate.content.cloneNode(true);
 
         const tasksContainer = addButton.parentElement.parentElement.querySelector(".tasks-container");
 
-        const deleteTaskButton = taskTemplateClone.querySelector(".task-div .task-delete-button-container .delete-task-button")
+        const deleteTaskButton = taskTemplateClone.querySelector(".task-div .task-delete-button-container .delete-task-button");
 
         deleteTaskButton.addEventListener("click", function () {
-            deleteTaskButton.parentElement.parentElement.remove()
+            deleteTaskButton.parentElement.parentElement.remove();
         })
 
-        tasksContainer.append(taskTemplateClone)
+        tasksContainer.append(taskTemplateClone);
+
+        saveTodoListsToLocalStorage();
     })
+}
+
+
+createButton.addEventListener("click", () => {
+    // console.log("clicked!") -- Debug
+    const numberOfTodoLists = todoListContainer.children.length;
+    if (numberOfTodoLists >= 4) {
+        alert("Can't have more than 4 todo lists!");
+        return;
+    }
+
+    createButton.classList.add("stuck");
+
+    const listTemplateClone = listTemplate.content.cloneNode(true);
+
+    if (!todoListContainer.classList.contains("container-with-frame")) {
+        todoListContainer.classList.add("container-with-frame");
+    }
+
+    const background = listTemplateClone.querySelector(".to-do-list-frame");
+
+    setupListButtons(background)
+
+    // console.log(background)
 
     todoListContainer.append(listTemplateClone);
+
+    saveTodoListsToLocalStorage();
 })
 
 document.addEventListener('focusin', (event) => {
@@ -82,6 +165,9 @@ document.addEventListener('focusout', (event) => {
         if (element.innerText.trim() === "") {
             element.innerText = placeholderText
         }
+
+         saveTodoListsToLocalStorage();
+
         // console.log("User focused a contenteditable element:"", event.target);
     }
 });
@@ -208,6 +294,9 @@ const observer = new MutationObserver((mutationsList) => {
 
 // Initialise 
 observer.observe(document.body, { childList: true, subtree: true });
+
+// Load lists (if any)
+loadTodoListsFromLocalStorage()
 
 
 
