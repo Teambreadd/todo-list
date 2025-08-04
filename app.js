@@ -139,6 +139,7 @@ createButton.addEventListener("click", () => {
     saveTodoListsToLocalStorage();
 })
 
+// Computer
 document.addEventListener('focusin', (event) => {
     if (event.target.isContentEditable) {
         const element = event.target
@@ -151,7 +152,22 @@ document.addEventListener('focusin', (event) => {
         if (placeholderText == element.innerText) {
             element.innerText = ""
         }
+        
         // console.log("User focused a contenteditable element:"", event.target);
+    }
+});
+
+// Mobile
+document.addEventListener('touchstart', (event) => {
+    if (event.target.isContentEditable) {
+        const element = event.target;
+        const placeholder = element.getAttribute("data-placeholder-text");
+        if (!placeholder) return;
+
+        if (element.innerText.trim() === placeholder) {
+            element.innerText = "";
+            setTimeout(() => element.focus(), 0);
+        }
     }
 });
 

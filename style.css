@@ -95,11 +95,12 @@ button {
     text-align: center;
     /* This is just to make it look good while resizing in inspect lol */
     transition-duration: 0.5s;
+    font-weight: bold;
 }
 
 .task-title {
     margin-top: 1%;
-    font-size: clamp(0.7rem, 2.1vw, 1.6rem);
+    font-size: clamp(1.2rem, 2.1vw, 1.6rem);
 }
 
 .add-task-button {
@@ -108,7 +109,7 @@ button {
     background-color: #B0D7FF;
     width: 50%;
     height: 55%;
-    font-size: clamp(0.75rem, 1.3vw, 0.8rem);
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
 }
 
 .add-task-button:hover {
@@ -128,7 +129,7 @@ button {
     /* This button does not follow palette but follows conventions (delete button should be red) */
     width: 50%;
     height: 55%;
-    font-size: clamp(0.75rem, 1.3vw, 0.8rem);
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
 }
 
 .delete-list-button:hover {
@@ -157,7 +158,7 @@ button {
 .task-text {
     width: 100%;
     margin-left: 8px;
-    font-size: clamp(0.5rem, 1.8vw, 1.2rem);
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
 }
 
 .task-delete-button-container {
@@ -179,7 +180,7 @@ button {
     max-height: 30px;
     border-width: 1px;
     margin-left: 20%;
-    font-size: clamp(0.1rem, 1.3vw, 0.8rem);
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
 }
 
 
@@ -205,6 +206,13 @@ button {
 button:hover {
     background-color: #eaeaea;
 }
+
+[contenteditable]:empty:before {
+  content: attr(data-placeholder-text);
+  color: #aaa;
+  pointer-events: none;
+}
+
 
 /* Media Queries (for changing layouts on different devices e.g., tablet, mobile) */
 
