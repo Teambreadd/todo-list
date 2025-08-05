@@ -97,6 +97,7 @@ button {
     /* This is just to make it look good while resizing in inspect lol */
     transition-duration: 0.5s;
     font-weight: bold;
+    width: 90%;
 }
 
 .task-title {
@@ -143,7 +144,7 @@ button {
     align-items: center;
     justify-content: center;
     width: 90%;
-    min-height: 50px;
+    /* min-height: 50px; */
     background-color: #EAE8FF;
     border-radius: 10px;
 }

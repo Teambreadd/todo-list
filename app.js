@@ -147,7 +147,7 @@ function placeCursorAtEnd(el) {
     const sel = window.getSelection();
 
     range.selectNodeContents(el);
-    range.collapse(false); 
+    range.collapse(false);
 
     sel.removeAllRanges();
     sel.addRange(range);
@@ -169,7 +169,7 @@ document.addEventListener("focusin", (event) => {
         }
 
         setTimeout(() => placeCursorAtEnd(element), 0);
-        
+
         // console.log("User focused a contenteditable element:"", event.target);
     }
 });
@@ -203,7 +203,7 @@ document.addEventListener("focusout", (event) => {
             element.innerText = placeholderText
         }
 
-         saveTodoListsToLocalStorage();
+        saveTodoListsToLocalStorage();
 
         // console.log("User focused a contenteditable element:"", event.target);
     }
@@ -277,12 +277,19 @@ function shiftEnterFunctionality(event, element) {
                 characterData: true
             });
 
-
-
         } else if (event.key == "Enter") {
             element.blur();
         }
     }
+}
+
+function placeCaretAtEnd(el) {
+    const range = document.createRange();
+    const sel = window.getSelection();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
 }
 
 // for editable elements that already exist when this script runs.
@@ -301,6 +308,7 @@ for (const element of editableElements) {
     });
 }
 
+
 // A listener for future editable elements that may be added.
 const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
@@ -318,10 +326,27 @@ const observer = new MutationObserver((mutationsList) => {
                             }
                         })
 
-                        // Must be keyup otherwise the keysPressed Set will not update in time!
-                        element.addEventListener("keyup", (event) => {
-                            shiftEnterFunctionality(event, element);
-                        });
+                        if (element.classList.contains("task-text")) {
+                            // Must be keyup otherwise the keysPressed Set will not update in time!
+                            element.addEventListener("keyup", (event) => {
+                                shiftEnterFunctionality(event, element);
+                            });
+                        } else {
+                            const maxChar = 20
+                            element.addEventListener("input", () => {
+                                let string = element.innerText
+                                // console.log(string)
+                                if (string.length > maxChar) {
+                                    element.innerText = string.slice(0, maxChar)
+                                    placeCaretAtEnd(element);
+                                }
+                            });
+                            element.addEventListener("keyup", (event) => {
+                                if (event.key == "Enter") {
+                                    element.blur();
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -337,13 +362,13 @@ loadTodoListsFromLocalStorage()
 
 // Register the service worker
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker.register("./service-worker.js").then(function(registration) {
-      console.log("ServiceWorker registered with scope:", registration.scope);
-    }, function(err) {
-      console.log("ServiceWorker registration failed:", err);
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js").then(function (registration) {
+            console.log("ServiceWorker registered with scope:", registration.scope);
+        }, function (err) {
+            console.log("ServiceWorker registration failed:", err);
+        });
     });
-  });
 }
 
 // Previous create button stick system - Didn't work out :c

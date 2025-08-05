@@ -26,8 +26,9 @@
 
     <template id="to-do-list-template">
         <div class="to-do-list-frame">
-            <p contenteditable="true" data-placeholder-text="Click to add title" class="list-title editable">Click to
-                add title</p>
+            <!-- This title is a paragraph element because headers here were buggy with cursor selection. Not sure why the tasks h3 is fine. -->
+            <p contenteditable="true" data-placeholder-text="Click to add title" class="list-title editable" data-max-font-size="2rem">Click to
+                add title</p> 
             <h2 class="task-title">Tasks</h2>
             <div class="tasks-container">
             </div>
