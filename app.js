@@ -3,7 +3,7 @@ const createButton = document.querySelector("#create-button")
 const todoListContainer = document.querySelector("#to-do-list-container")
 const listTemplate = document.getElementById("to-do-list-template");
 const taskTemplate = document.getElementById("task-template");
-const maxNumOfTodoLists = 4
+const MAX_NUM_OF_TODO_LISTS = 4;
 
 // Saves all to-do lists in browser to localStorage
 function saveTodoListsToLocalStorage() {
@@ -143,11 +143,11 @@ function setupListButtons(background) {
 
 // Listener that adds a to-do list on click. It is similar to the load to-do list from localStorage section but I have decided to make it separate and not a function because there are some differences. 
 createButton.addEventListener("click", () => {
-    // console.log("clicked!") -- Debug
+    // console.log("clicked!"); -- Debug
     // Checks the number of to-do lists that currently exist. If more than the maxNumber defined at the top of the script, return and prevent any further code from executing.
     const numberOfTodoLists = todoListContainer.children.length;
-    if (numberOfTodoLists >= maxNumOfTodoLists) {
-        alert(`Can't have more than ${maxNumOfTodoLists} todo lists!`);
+    if (numberOfTodoLists >= MAX_NUM_OF_TODO_LISTS) {
+        alert(`Can't have more than ${MAX_NUM_OF_TODO_LISTS} todo lists!`);
         return;
     }
 
@@ -165,9 +165,9 @@ createButton.addEventListener("click", () => {
     const background = listTemplateClone.querySelector(".to-do-list-frame");
 
     // Adds click event listener functionality for add task button and delete list button.
-    setupListButtons(background)
+    setupListButtons(background);
 
-    // console.log(background)
+    // console.log(background);
 
     // Makes the list a child of the to-do list container.
     todoListContainer.append(listTemplateClone);
@@ -201,13 +201,13 @@ document.addEventListener("focusin", (event) => {
         const placeholderText = element.getAttribute("data-placeholder-text");
         // Return if placeholder text not found
         if (!placeholderText) {
-            // console.log("nil")
+            // console.log("nil");
             return
         }
 
         // If the text of the element is the placeholder text then remove it.
         if (element.innerText.trim() === placeholderText) {
-            element.innerText = ""
+            element.innerText = "";
         }
 
         // Places cursor at the end of the text.
@@ -241,10 +241,10 @@ document.addEventListener("focusout", (event) => {
         const placeholderText = element.getAttribute("data-placeholder-text");
         // Exits the event listener if the attribute placeholder text cannot be found to prevent errors.
         if (!placeholderText) {
-            // console.log("nil")
+            // console.log("nil");
             return;
         }
-        // console.log(element.innerText)
+        // console.log(element.innerText);
 
         // Checks whether the elements innerText is an empty string and if it is, change it to the elements placeholder text.
         if (element.innerText.trim() === "") {
@@ -274,10 +274,10 @@ window.addEventListener("keyup", (event) => {
 function shiftEnterFunctionality(event, element) {
     // Checks whether the current focused element is the element passed in.
     if (document.activeElement === element) {
-        // console.log(keysPressed)
+        // console.log(keysPressed);
         // Checks whether the user is holding down enter and shift at the same time.
         if (keysPressed.has("Enter") && keysPressed.has("Shift")) {
-            // console.log("enter and shift key pressed")
+            // console.log("enter and shift key pressed");
             // Creates and inserts br and zwsp into a span, which is then inserted into the text to create a line break.
             const br = document.createElement("br");
             const zwsp = document.createTextNode("\u200B");
@@ -364,13 +364,13 @@ function setupEditableElement(element) {
         // If it doesn't have the task-text class, the element must be a title, so assign title functionality. 
 
         // Limits characters to maxChar.
-        const maxChar = 20
+        const maxChar = 20;
         element.addEventListener("input", () => {
-            let string = element.innerText
-            // console.log(string)
+            let string = element.innerText;
+            // console.log(string);
             // Prevents user from typing more than 20 characters.
             if (string.length > maxChar) {
-                element.innerText = string.slice(0, maxChar)
+                element.innerText = string.slice(0, maxChar);
                 placeCursorAtEnd(element);
             }
         });
@@ -385,11 +385,11 @@ function setupEditableElement(element) {
 }
 
 // for editable elements that already exist when this script runs.
-const editableElements = document.querySelectorAll(".editable")
+const editableElements = document.querySelectorAll(".editable");
 
 // Loops through all elements found that have the .editable class in the DOM.
 for (const element of editableElements) {
-    shiftEnterFunctionality(element)
+    shiftEnterFunctionality(element);
 }
 
 
@@ -402,12 +402,12 @@ const observer = new MutationObserver((mutationsList) => {
             // Checks if the node is an element.
             if (node.nodeType === 1) {
                 // Returns a nodeList of all elements with the class .editable inside node (node here is the to-do list itself)
-                const nodes = node.querySelectorAll(".editable")
+                const nodes = node.querySelectorAll(".editable");
                 // Only proceeds if there are any child elements with the .editable class like the list title
                 if (nodes.length > 0) {
                     // Loops through every element found with the .editable class and assigns it the following event listeners to give it functionality.
                     for (const element of nodes) {
-                        setupEditableElement(element)
+                        setupEditableElement(element);
                     }
                 }
             }
@@ -419,7 +419,7 @@ const observer = new MutationObserver((mutationsList) => {
 observer.observe(document.body, { childList: true, subtree: true });
 
 // Load lists (if any)
-loadTodoListsFromLocalStorage()
+loadTodoListsFromLocalStorage();
 
 // Registers the service worker
 if ("serviceWorker" in navigator) {
