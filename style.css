@@ -1,4 +1,4 @@
-/* General Styles */
+/* General Styles for elements */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #F5F4F6;
@@ -24,14 +24,19 @@ button {
     border: 2px solid #2D3142;
     height: 50px;
     width: 150px;
-    /* Default button max size */
+    /* Default button max width + height */
     max-height: 50px;
     max-width: 150px;
     color: #2D3142;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     transition-duration: 0.25s;
-    touch-action: manipulation;
-    font-size: clamp(0.8rem, 1.3vw, 1rem);
+    touch-action: manipulation; /* Overrides default mobile gestures such as double-tap-to-zoom and pinch-zoom */
+    font-size: clamp(1rem, 1.3vw, 1rem);
+}
+
+/* Custom styling when user hovers on element */
+button:hover {
+    background-color: #eaeaea;
 }
 
 /* Classes for static elements */
@@ -44,10 +49,10 @@ button {
 }
 
 .container-with-frame {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    display: flex; /* turns container into a flexbox (enables flex layout) */
+    flex-direction: row; /* sets main axis to the horizontal axis */
+    align-items: center; /* aligns all child items vertically (on the cross axis, the axis that is not the main axis) */
+    justify-content: center; /* aligns all child items horizontally (on the main axis) */
     width: 100%;
     height: 420px;
 }
@@ -82,7 +87,7 @@ button {
     height: 65%;
     border: 2px solid #2D3142;
     border-radius: 2px;
-    overflow-y: auto;
+    overflow-y: auto; /* Enables vertical scrolling when there are many tasks */
     gap: 0.75rem;
     box-sizing: border-box;
     padding-top: 0.75rem;
@@ -94,14 +99,14 @@ button {
     margin-bottom: 0.5%;
     font-size: 2rem;
     text-align: center;
-    /* This is just to make it look good while resizing in inspect lol */
-    transition-duration: 0.5s;
+    transition-duration: 0.5s;  /* This is just to make it look good while resizing in inspect lol */
     font-weight: bold;
     width: 90%;
 }
 
 .task-title {
     margin-top: 1%;
+     /* Resizes text size to fit reasonably on different screen sizes - This is the same for every clamp() */
     font-size: clamp(1.2rem, 2.1vw, 1.6rem);
 }
 
@@ -171,7 +176,7 @@ button {
 }
 
 .delete-task-button {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1; /* Ensures button stays square */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,6 +197,7 @@ button {
 
 /* Classes for Dynamic States */
 
+/* Fixes the create list button to the bottom of the screen. */
 .stuck {
     position: fixed;
     bottom: 2%;
@@ -204,11 +210,7 @@ button {
     width: 90%;
 } */
 
-/* Transitions */
-button:hover {
-    background-color: #eaeaea;
-}
-
+/* Styles placeholder text */
 [contenteditable]:empty:before {
   content: attr(data-placeholder-text);
   color: #aaa;
@@ -218,6 +220,7 @@ button:hover {
 
 /* Media Queries (for changing layouts on different devices e.g., tablet, mobile) */
 
+/* Arranges two to-do lists per row. */
 @media (max-width: 900px) {
     .container-with-frame {
         flex-wrap: wrap;
@@ -230,6 +233,7 @@ button:hover {
     }
 }
 
+/* Arranges one to-do lists per row. */
 @media (max-width: 670px) {
     .container-with-frame {
         flex-wrap: wrap;
@@ -249,6 +253,7 @@ button:hover {
     }
 }
 
+/* Makes the to-do lists shrink in width as the screen width decreases so the to-do lists don't overflow horizontally. */
 @media (max-width: 480px) {
     .container-with-frame>* {
         width: 80%;
@@ -267,4 +272,3 @@ button:hover {
     }
 }
 
-/* Did not optimise layout for screen widths < 290px as barely any modern devices have such a slim width. It's also just too skinny. */
